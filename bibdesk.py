@@ -7,9 +7,11 @@ class BibDesk:
     def import_reference(self, ref):
         a = self.app
 
-        # Insert the reference
-        doc = a.import_(a.document.get()[0], from_=ref)
+        # Get the selected bibdesk database
+        db = a.documents.get()[0]
 
-        # Auto-generate a cite-key
-        item = a.documents.get()[0].selection.get()[0]
-        item.cite_key.set(item.generated_cite_key())
+        # Insert the reference
+        doc = a.import_(db, from_=ref)
+
+        # Auto-generate cite-key
+        doc[0].cite_key.set(doc[0].generated_cite_key())
